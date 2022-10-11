@@ -1,0 +1,21 @@
+{
+  "name": "tedxntua-ssg-base",
+  "version": "0.0.1",
+  "description": "A base for TEDxNTUA static websites generated from a Django application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "distill": "python3 ./manage.py distill-local dist --collectstatic --force",
+    "build": "npm run distill"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yiannisha/tedxntua-ssg-base.git"
+  },
+  "author": "Yiannis Hadjiyianni",
+  "licenwse": "MIT",
+  "bugs": {
+    "url": "https://github.com/yiannisha/tedxntua-ssg-base/issues"
+  },
+  "homepage": "https://github.com/yiannisha/tedxntua-ssg-base#readme"
+}
