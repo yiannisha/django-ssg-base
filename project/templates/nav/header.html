@@ -1,0 +1,38 @@
+{% load static %}
+
+<nav id="nav" aria-label="Navigation header">
+    <a class="navbar-brand" href="{% url 'index' %}"
+        aria-label="Go to homepage">
+        <img src="{% static 'images/tedxntua_logo_blacktext.png' %}"
+             alt="TEDxNTUA logo" />
+    </a>
+    <button class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-nav" aria-controls="navbar-nav"
+            aria-label="Toggle navigation menu" aria-expanded="false">
+        <div class="navbar-toggler-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+        </div>
+        <span class="unexpanded">MENU</span>
+        <span class="expanded">CLOSE</span>
+    </button>
+    <hr></hr>
+    <ul role="menu" id="navbar-nav" class="navbar-nav collapse"
+        aria-label="Navigation menu">
+        <li class="nav-item">
+            <a role="menuitem" href="{% url 'index' %}"
+                class="nav-link">
+                <div class="nav-link-icon squares-overlayed orange-blue"
+                    aria-hidden="true"></div>
+                <span class="nav-item-text">Home</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a role="menuitem" href="{% url 'aboutus' %}"
+                class="nav-link">
+                <div class="nav-link-icon squares-overlayed orange-blue"
+                    aria-hidden="true"></div>
+                <span class="nav-item-text">About Us</span>
+            </a>
+        </li>
+      </ul>
+</nav>

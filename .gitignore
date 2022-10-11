@@ -87,3 +87,9 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Python virtual env
+env
+
+# Static Directory Created on Build
+static
