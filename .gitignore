@@ -93,3 +93,6 @@ env
 
 # Static Directory Created on Build
 static
+
+# pycache
+__pycache__/
