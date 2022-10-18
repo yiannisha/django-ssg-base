@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "distill": "python3 ./manage.py distill-local dist --collectstatic --force",
-    "build": "npm run distill"
+    "build": "npm run distill && webpack --env mode='development'",
+    "build-prod": "npm run distill && webpack --env mode='production'"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/yiannisha/tedxntua-ssg-base/issues"
   },
-  "homepage": "https://github.com/yiannisha/tedxntua-ssg-base#readme"
+  "homepage": "https://github.com/yiannisha/tedxntua-ssg-base#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
 }
