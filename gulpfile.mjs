@@ -3,15 +3,15 @@ import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
 import webp from 'gulp-webp';
 import replace from 'gulp-replace';
-// import uglify from 'gulp-uglify';
 import rev from 'gulp-rev';
 import cleanCSS from 'gulp-clean-css';
 import htmlmin from 'gulp-htmlmin';
 import concatCSS from 'gulp-concat-css';
+import gulpRemoveHtml from 'gulp-remove-html';
 import { deleteAsync } from 'del';
 
 const STATIC_DIR = './dist/static';
-const IMG_DIR = STATIC_DIR+ '/img';
+const IMG_DIR = STATIC_DIR + '/img';
 const CSS_DIR = STATIC_DIR + '/css';
 
 // --- IMAGES ---
@@ -80,24 +80,30 @@ gulp.task('remove-extra-css', function () {
     return deleteAsync([`${CSS_DIR}/*.css`, `!${CSS_DIR}/main-*.css`]);
 });
 
-// Replace css CSS file paths in HTML files
-gulp.task('replace-css-paths', async function () {
-    throw new Error ('Not yet implemented');
+gulp.task('process-css', gulp.series('minify-css', 'concat-css', 'rev-css', 'remove-extra-css'));
 
+// --- HTML Files ---
+
+
+// Remove links to css files and unnecessary comments in HTML files
+gulp.task('remove-css-links', function () {
+    return gulp.src('./dist/*html')
+        .pipe(gulpRemoveHtml())
+        .pipe(gulp.dest('./dist'));
+});
+
+// Replace CSS file paths in HTML files
+gulp.task('replace-css-path', async function () {
     fs.readFile('./config/rev-manifest.json', 'utf-8', (err, jsonString) => {
         if (err) {
             throw err;
         }
         const mainCssFilename = JSON.parse(jsonString)['main.css'];
         return gulp.src('./dist/*html')
-        .pipe(replace(/about|home\.css/g, mainCssFilename))
+        .pipe(replace(/\/[a-zA-Z\d\.]+\.css/g, `/${mainCssFilename}`))
         .pipe(gulp.dest('./dist'));
     });
 });
-
-gulp.task('process-css', gulp.series('minify-css', 'concat-css', 'rev-css', 'remove-extra-css'));
-
-// --- HTML Files ---
 
 // Minify HTML files
 gulp.task('htmlmin', function () {
@@ -106,5 +112,7 @@ gulp.task('htmlmin', function () {
            .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('process-html', gulp.series('htmlmin', 'remove-css-links', 'replace-css-path'));
+
 // build task
-gulp.task('build', gulp.series('process-images', gulp.parallel('htmlmin', 'process-css')));
+gulp.task('build', gulp.series('process-images', gulp.parallel('process-html', 'process-css')));
