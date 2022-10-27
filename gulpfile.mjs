@@ -67,7 +67,7 @@ gulp.task('concat-css', function () {
 });
 
 // Add hash to main CSS file name
-gulp.task('rev-css', function () {
+gulp.task('rev-css', async function () {
     return gulp.src(`${CSS_DIR}/main.css`)
            .pipe(rev())
            .pipe(gulp.dest(CSS_DIR))
@@ -115,4 +115,4 @@ gulp.task('htmlmin', function () {
 gulp.task('process-html', gulp.series('htmlmin', 'remove-css-links', 'replace-css-path'));
 
 // build task
-gulp.task('build', gulp.series('process-images', 'process-html', 'process-css'));
+gulp.task('build', gulp.series('process-images', 'process-css', 'process-html'));
