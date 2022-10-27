@@ -92,7 +92,7 @@ Thumbs.db
 env
 
 # Static Directory Created on Build
-static
+/static
 
 # pycache
 __pycache__/
