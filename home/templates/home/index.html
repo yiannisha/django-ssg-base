@@ -4,9 +4,13 @@
 
 {% block title %}TEDxNTUA - HOME{% endblock %}
 {% block description %}Home of TEDxNTUA{% endblock %}
+{% block css %}{% static 'css/home.css' %}{% endblock %}
 
 {% block content %}
-  <h1 id="title">Hello world!</h1>
+  <h1 id="title" class="home">Hello world!</h1>
+  <div id="app">
+    <button></button>
+  </div>
 {% endblock %}
 
 {% block scripts %}
