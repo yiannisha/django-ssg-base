@@ -115,4 +115,4 @@ gulp.task('htmlmin', function () {
 gulp.task('process-html', gulp.series('htmlmin', 'remove-css-links', 'replace-css-path'));
 
 // build task
-gulp.task('build', gulp.series('process-images', gulp.parallel('process-html', 'process-css')));
+gulp.task('build', gulp.series('process-images', 'process-html', 'process-css'));
