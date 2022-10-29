@@ -8,11 +8,14 @@ import cleanCSS from 'gulp-clean-css';
 import htmlmin from 'gulp-htmlmin';
 import concatCSS from 'gulp-concat-css';
 import gulpRemoveHtml from 'gulp-remove-html';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
 import { deleteAsync } from 'del';
 
 const STATIC_DIR = './dist/static';
 const IMG_DIR = STATIC_DIR + '/img';
 const CSS_DIR = STATIC_DIR + '/css';
+const sass = gulpSass(dartSass);
 
 // --- IMAGES ---
 
@@ -75,15 +78,14 @@ gulp.task('rev-css', async function () {
            .pipe(gulp.dest('./config'));
 });
 
-// Remove extra CSS files from dist
+// Remove extra CSS and SCSS files from dist
 gulp.task('remove-extra-css', function () {
-    return deleteAsync([`${CSS_DIR}/*.css`, `!${CSS_DIR}/main-*.css`]);
+    return deleteAsync([`${CSS_DIR}/*.{css,scss}`, `!${CSS_DIR}/main-*.css`]);
 });
 
 gulp.task('process-css', gulp.series('minify-css', 'concat-css', 'rev-css', 'remove-extra-css'));
 
 // --- HTML Files ---
-
 
 // Remove links to css files and unnecessary comments in HTML files
 gulp.task('remove-css-links', function () {
@@ -116,3 +118,17 @@ gulp.task('process-html', gulp.series('htmlmin', 'remove-css-links', 'replace-cs
 
 // build task
 gulp.task('build', gulp.series('process-images', 'process-css', 'process-html'));
+
+// --- WATCHES ---
+
+// sass file compiler
+gulp.task('sass', function () {
+    return gulp.src('./**/static/css/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('.'));
+});
+
+// watch scss files
+gulp.task('sass:watch', function () {
+    return gulp.watch('./**/static/css/*.scss', gulp.series('sass'));
+});
