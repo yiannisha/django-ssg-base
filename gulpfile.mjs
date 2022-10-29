@@ -21,26 +21,26 @@ const sass = gulpSass(dartSass);
 
 // compress JPEG, JPG, PNG and GIF images 
 gulp.task('imagemin', function () {
-    return gulp.src('./dist/static/img/*.{png,jpeg,jpg,gif}')
+    return gulp.src(`${IMG_DIR}/*.{png,jpeg,jpg,gif}`)
            .pipe(imagemin({
                 optimizationLevel: 3,
                 progressive: true,
                 interlaced: true
             }))
-            .pipe(gulp.dest('./dist/static/img'));
+            .pipe(gulp.dest(IMG_DIR));
 });
 
 // convert JPEG, JPG, PNG and GIF to WEBP
 gulp.task('webp', function () {
-    return gulp.src('./dist/static/img/*.{png,jpeg,jpg,gif}')
+    return gulp.src(`${IMG_DIR}/*.{png,jpeg,jpg,gif}`)
            .pipe(webp())
-           .pipe(gulp.dest('./dist/static/img'));
+           .pipe(gulp.dest(IMG_DIR));
 
 });
 
 // remove JPEG, JPG, PNG and GIF images from dist/static/img
 gulp.task('delete-images', function () {
-    return deleteAsync(['dist/static/img/*.{jpeg,png,jpg,gif}']);
+    return deleteAsync([`${IMG_DIR}/*.{jpeg,png,jpg,gif}`]);
 })
 
 // replace paths to JPEG, JPG, PNG and GIF images in HTML with paths
