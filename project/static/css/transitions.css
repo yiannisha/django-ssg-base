@@ -1,0 +1,14 @@
+.barba-leave-active,
+.barba-enter-active {
+  transition: opacity 450ms ease;
+}
+
+.barba-leave,
+.barba-enter-to {
+  opacity: 1;
+}
+
+.barba-enter,
+.barba-leave-to {
+  opacity: 0;
+}
