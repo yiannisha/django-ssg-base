@@ -2,7 +2,36 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from cookiecutter.main import cookiecutter
 
+COOKIECUTTER_APP_TEMPLATE = 'https://github.com/yiannisha/django-ssg-app-template'
+
+def createApp (appName: str) -> None:
+    """
+    Creates an app using the COOKIECUTTER_APP_TEMPLATE
+    
+    :param appName: name of the app
+    """
+    
+    context = {
+        'APP_NAME': appName,
+    }
+
+    cookiecutter(
+        COOKIECUTTER_APP_TEMPLATE,
+        no_input=True,
+        extra_context=context
+    )
+    
+
+def configureApp (appName: str) -> None:
+    """
+    Configures the project to work with the given app.
+    Assumes that it is an app based on the COOKIECUTTER_APP_TEMPLATE.
+
+    :param appName: name of the app
+    """
+    pass
 
 def main():
     """Run administrative tasks."""
@@ -19,4 +48,7 @@ def main():
 
 
 if __name__ == '__main__':
+    if sys.argv[1] == 'startapp':
+        createApp(sys.argv[2])
+        sys.exit(0)
     main()
