@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+from project.utils import getAppNames, getTemplateDirs
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -39,9 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_distill',
-    'home',
-    'aboutus',
 ]
+INSTALLED_APPS.extend(getAppNames())
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,11 +59,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            'project/templates',
-            'home/templates',
-            'aboutus/templates',
-        ],
+        'DIRS': getTemplateDirs(),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
