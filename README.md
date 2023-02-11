@@ -1,2 +1,2 @@
-# tedxntua-ssg-base
-A base for TEDxNTUA static websites generated from a Django application.
+# django-ssg-base
+A framework for generating static websites generated from a Django application.
